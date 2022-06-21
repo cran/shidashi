@@ -43,7 +43,11 @@ adminlte_ui <- function(root_path = template_root()){
         paste(
           sep = "\n",
           "Error message:",
-          e$message
+          e$message,
+          "Traceback:",
+          paste(utils::capture.output({
+            traceback(e)
+          }), collapse = "\n")
         )
       )
       if(file.exists(module_template)){
@@ -100,7 +104,7 @@ adminlte_sidebar <- function(root_path = template_root(),
     y <- x[!names(x) %in% c('order', 'group', 'label', 'icon', 'badge', 'module')]
     y$module <- mid
     y$shared_id <- shared_id
-    url <- httr::modify_url("/?module=", query = y)
+    url <- httr::modify_url("?module=", query = y)
     order <- x$order
     if(!length(order) || is.na(order)){
       order <- 9999L
@@ -123,7 +127,7 @@ adminlte_sidebar <- function(root_path = template_root(),
       label = ifelse(length(x$label) == 1, x$label, "No Label"),
       icon = ifelse(length(x$icon) == 1, x$icon, ""),
       badge = ifelse(length(x$badge) == 1, x$badge, ""),
-      url = gsub("^[^\\?]+", "/", url),
+      url = gsub("^[^\\?]+", "", url),
       stringsAsFactors = FALSE
     )
   }))
@@ -164,11 +168,11 @@ adminlte_sidebar <- function(root_path = template_root(),
     if(is.na(x$group)){
       item <- menu_item(text = x$label, icon = x$icon, href = x$url, badge = x$badge)
       side_bar[[length(side_bar) + 1]] <- item
-    } else if(!x$group %in% ignore_group){
+    } else if(!as.character(x$group) %in% ignore_group){
 
       # add group
       group <- x$group
-      ignore_group <- c(ignore_group, group)
+      ignore_group <- c(ignore_group, as.character(group))
       sub <- module_tbl[!is.na(module_tbl$group) & module_tbl$group == group, ]
       if(nrow(sub)){
 

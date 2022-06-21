@@ -63,7 +63,11 @@ render <- function(
       test.mode = test_mode,
       appDir = root_path
     ))
-    s <- sprintf("shidashi::template_settings$set('root_path' = '%s')", root_path)
+    s <- c(
+      sprintf("shidashi::template_settings$set('root_path' = '%s')", root_path),
+      'options("crayon.enabled" = TRUE)',
+      'options("crayon.colors" = 256)'
+    )
     s <- c(s, deparse(call))
     writeLines(
       con = script,
@@ -134,5 +138,17 @@ include_view <- function(file, ..., .env = parent.frame(),
   # shiny::htmlTemplate(file, ..., document_ = FALSE)
 }
 
-
-
+#' Reset shiny outputs with messages
+#' @description Forces outdated output to reset and show a silent message.
+#' @param outputId output ID
+#' @param message output message
+#' @param session shiny reactive domain
+#' @return No value
+#' @export
+reset_output <- function(outputId, message = "This output has been reset",
+                         session = shiny::getDefaultReactiveDomain()) {
+  session$sendCustomMessage("shidashi.reset_output", list(
+    outputId = session$ns(outputId),
+    message = message
+  ))
+}
