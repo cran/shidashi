@@ -1,7 +1,7 @@
-5fa08bd364dbe52fef497365e9a50b28 *DESCRIPTION
+10d70446a00a857bbaa50a77e30e786e *DESCRIPTION
 5cb9308a9f4bf75c534aec701af0354d *LICENSE
 314b3c0dc0549e91128d3c763b66386b *NAMESPACE
-f9a915853c58f63177473dd30fb75451 *NEWS.md
+1020c87bb2185f59d89e7b524852b868 *NEWS.md
 d608e5b9bef23588c141980a42499342 *R/aaa.R
 d3e079393cefefcea1f667ee329655c5 *R/accordion.R
 ac85912059a5bf685d6bf4ac1cd88e0d *R/barebone.R
@@ -11,14 +11,14 @@ c2f2a9a94d775a8b0e00a6860fd79771 *R/card-tool.R
 809a548bf8ad4193c0c97f467c8bce2e *R/clipboard.R
 94b30bd644c75340c4f5c741d66aeb0e *R/info-box.R
 92d5bf79b143441b2c63dbcede96e43c *R/menu-item.R
-0dc4b1adcad2643424197e688658748c *R/modules.R
+ba8321eb8c499d120ae1bcf6a136eaec *R/modules.R
 6ad3d2283ad0157cf0f1c5a6c0650823 *R/notification.R
 81d4c863d2166a65645e44ead0f8aa5a *R/progress.R
 4bb74a695f82538ff1b7a6676e9cca55 *R/render.R
 9666d96d21b79bf6387a6e9c6983fdab *R/rstudio.R
 615888a639b9f016b4d31451d7477d03 *R/settings.R
 ba3c32ac32a9cad763d6f4b3603ac42e *R/shared-session.R
-db97023193cdc89da8f10c84c2daa71c *R/ui-adminlte.R
+8cff6ace125160df19f72cafe5f05a23 *R/ui-adminlte.R
 fa43a9a4f53a6b905c5ad5adfd444c87 *R/utils.R
 dd7f68ec40d88288ac338e9786c4c1ca *R/widgets.R
 9b7acd3b605b4463380f76586155ec98 *README.md
@@ -77,7 +77,7 @@ c2bd6405b5be5cb624668f8d5c87e5b1 *man/card.Rd
 3eeadfeb186705f0fe5ff1a12884ac06 *man/card_tabset_operate.Rd
 90fa63aeccf3e3517d06839132e915df *man/card_tool.Rd
 4fb6557758e81ee3c0dcb0317cd41c73 *man/clipboardOutput.Rd
-2fa9d24713fe437d0bf1c0b6fc8bb3ff *man/flex_container.Rd
+9b8b861202ce69dac46277974474eb0e *man/flex_container.Rd
 2dba3dab64addbcc264b4f44da372e66 *man/flip_box.Rd
 17b1e3e6a45b2d4b89292a3b08b987f1 *man/format_text_r.Rd
 e83ba6517fc3777f129d823305076825 *man/get_construct_string.Rd
