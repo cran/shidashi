@@ -1,7 +1,7 @@
 Package: shidashi
 Type: Package
 Title: A Shiny Dashboard Template System
-Version: 0.1.3
+Version: 0.1.4
 Language: en-US
 URL: https://dipterix.org/shidashi/
         https://github.com/dipterix/shidashi
@@ -34,7 +34,7 @@ Imports: utils, digest (>= 0.6.27), fastmap (>= 1.1.0), formatR (>=
 Suggests: htmltools (>= 0.5.2), logger (>= 0.2.1), rstudioapi (>=
         0.13), ggplot2, ggExtra
 NeedsCompilation: no
-Packaged: 2022-08-06 14:32:57 UTC; dipterix
+Packaged: 2022-10-15 14:25:15 UTC; dipterix
 Author: Zhengjia Wang [cph, aut, cre] (<https://orcid.org/0000-0001-5629-1116>),
   ColorlibHQ [cph] (AdminLTE - Bootstrap 4 Admin Dashboard),
   Bootstrap contributors [ctb] (Bootstrap library),
@@ -44,4 +44,4 @@ Author: Zhengjia Wang [cph, aut, cre] (<https://orcid.org/0000-0001-5629-1116>),
   Zeno Rocha [ctb, cph] (Clipboard.js library)
 Maintainer: Zhengjia Wang <dipterix.wang@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-08-06 15:00:02 UTC
+Date/Publication: 2022-10-16 00:20:21 UTC

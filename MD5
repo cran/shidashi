@@ -1,7 +1,7 @@
-10d70446a00a857bbaa50a77e30e786e *DESCRIPTION
+2420a8fcd43870f9a652ad26b5e2f98a *DESCRIPTION
 5cb9308a9f4bf75c534aec701af0354d *LICENSE
 314b3c0dc0549e91128d3c763b66386b *NAMESPACE
-1020c87bb2185f59d89e7b524852b868 *NEWS.md
+33df9c3daae9a1b3976bf3ceff42aaca *NEWS.md
 d608e5b9bef23588c141980a42499342 *R/aaa.R
 d3e079393cefefcea1f667ee329655c5 *R/accordion.R
 ac85912059a5bf685d6bf4ac1cd88e0d *R/barebone.R
@@ -14,7 +14,7 @@ c2f2a9a94d775a8b0e00a6860fd79771 *R/card-tool.R
 ba8321eb8c499d120ae1bcf6a136eaec *R/modules.R
 6ad3d2283ad0157cf0f1c5a6c0650823 *R/notification.R
 81d4c863d2166a65645e44ead0f8aa5a *R/progress.R
-4bb74a695f82538ff1b7a6676e9cca55 *R/render.R
+885719b4f993ab9aa2519f9d918a836c *R/render.R
 9666d96d21b79bf6387a6e9c6983fdab *R/rstudio.R
 615888a639b9f016b4d31451d7477d03 *R/settings.R
 ba3c32ac32a9cad763d6f4b3603ac42e *R/shared-session.R
@@ -89,7 +89,7 @@ e83ba6517fc3777f129d823305076825 *man/get_construct_string.Rd
 4bbf56a449d49dbaf2b3baee90b6d2a1 *man/notification.Rd
 6deb042827a8fdae5f7998463853909f *man/progressOutput.Rd
 639c76e9967f86c89a426c42164643a5 *man/register_global_reactiveValues.Rd
-9c62a7689b2fa14ea55a96443a17764d *man/render.Rd
+5e0650df69965349c7c115aeb36ac1fc *man/render.Rd
 d276ae90edb8e3eb0c52951ffd82a32a *man/reset_output.Rd
 e5efc4faaca2cb4bec997c31c2e69ddc *man/shiny_progress.Rd
 0dfd6b9c8231b896edbcef8615dfa025 *man/show_ui_code.Rd
