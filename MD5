@@ -1,7 +1,7 @@
-064de5e714da171c8e1af60a2c86a972 *DESCRIPTION
+497e81574e23ac77697decef673dd38e *DESCRIPTION
 5cb9308a9f4bf75c534aec701af0354d *LICENSE
 556f84462b86710f1c385c79fb849002 *NAMESPACE
-a583ca9c5e808199fe6ba45679b32bb6 *NEWS.md
+d4268a8fa6f5bcadee0c2f540fafa7c3 *NEWS.md
 70faeb8748f220b534706b1fba34fba6 *R/aaa.R
 f91335ffd85304725b03831bce6ed383 *R/accordion.R
 ac85912059a5bf685d6bf4ac1cd88e0d *R/barebone.R
@@ -11,7 +11,7 @@ c2f2a9a94d775a8b0e00a6860fd79771 *R/card-tool.R
 7d9ada2af9977aa6f808d39a645fabb0 *R/clipboard.R
 94b30bd644c75340c4f5c741d66aeb0e *R/info-box.R
 92d5bf79b143441b2c63dbcede96e43c *R/menu-item.R
-ba8321eb8c499d120ae1bcf6a136eaec *R/modules.R
+a186e128cc823ba4e9a3be356eafffd0 *R/modules.R
 6ad3d2283ad0157cf0f1c5a6c0650823 *R/notification.R
 81d4c863d2166a65645e44ead0f8aa5a *R/progress.R
 885719b4f993ab9aa2519f9d918a836c *R/render.R

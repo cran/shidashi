@@ -1,14 +1,14 @@
 Package: shidashi
 Type: Package
 Title: A Shiny Dashboard Template System
-Version: 0.1.5
+Version: 0.1.6
 Language: en-US
 URL: https://dipterix.org/shidashi/,
         https://github.com/dipterix/shidashi
 BugReports: https://github.com/dipterix/shidashi/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Authors@R: c(
     person("Zhengjia", "Wang", email="dipterix.wang@gmail.com", 
             role = c("cph", "aut", "cre"), comment = c(ORCID = "0000-0001-5629-1116")),
@@ -34,7 +34,7 @@ Imports: utils, digest (>= 0.6.27), fastmap (>= 1.1.0), formatR (>=
 Suggests: htmltools (>= 0.5.2), logger (>= 0.2.1), rstudioapi (>=
         0.13), ggplot2, ggExtra
 NeedsCompilation: no
-Packaged: 2023-04-04 15:06:22 UTC; dipterix
+Packaged: 2024-02-17 03:29:58 UTC; dipterix
 Author: Zhengjia Wang [cph, aut, cre] (<https://orcid.org/0000-0001-5629-1116>),
   ColorlibHQ [cph] (AdminLTE - Bootstrap 4 Admin Dashboard),
   Bootstrap contributors [ctb] (Bootstrap library),
@@ -44,4 +44,4 @@ Author: Zhengjia Wang [cph, aut, cre] (<https://orcid.org/0000-0001-5629-1116>),
   Zeno Rocha [ctb, cph] (Clipboard.js library)
 Maintainer: Zhengjia Wang <dipterix.wang@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-04-04 16:10:02 UTC
+Date/Publication: 2024-02-17 03:50:02 UTC
