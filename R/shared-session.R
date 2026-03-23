@@ -185,8 +185,8 @@ register_session_id <- function(
     shared_id <- session$userData$shidashi$shared_id
     if(length(shared_id) != 1 || !is.character(shared_id)){
       # get from session
-      query_list <- httr::parse_url(shiny::isolate(session$clientData$url_search))
-      shared_id <- query_list$query$shared_id
+      query_list <- shiny::parseQueryString(shiny::isolate(session$clientData$url_search))
+      shared_id <- query_list$shared_id
       shared_id <- tolower(shared_id)
       if(!length(shared_id) || grepl("[^a-z0-9_]", shared_id)){
         shared_id <- rand_string(length = 26)
@@ -258,9 +258,6 @@ register_session_id <- function(
     }
   }
 
-  res
-
-
   # ----- For backward compatibility -----------------------------------
   session$cache$set("shidashi_shared_id", shared_id)
   session$cache$set("shidashi_private_id", private_id)
@@ -272,15 +269,15 @@ register_session_id <- function(
 #' @rdname javascript-tunnel
 #' @export
 register_session_events <- function(session = shiny::getDefaultReactiveDomain()){
-  if(is.environment(session)){
+  if (is.environment(session)) {
     root_session <- session$rootScope()
 
     # event_data <- root_session$cache$get("shidashi_event_data", NULL)
-    if(!is.environment(root_session$userData$shidashi)) {
+    if (!is.environment(root_session$userData$shidashi)) {
       root_session$userData$shidashi <- new.env(parent = emptyenv())
     }
     event_data <- root_session$userData$shidashi$event_data
-    if(!shiny::is.reactivevalues(event_data)){
+    if (!shiny::is.reactivevalues(event_data)) {
       event_data <- shiny::reactiveValues()
       root_session$userData$shidashi$event_data <- event_data
     }
@@ -288,12 +285,12 @@ register_session_events <- function(session = shiny::getDefaultReactiveDomain())
     # observer <- root_session$cache$get("shidashi_event_handler", NULL)
     observer <- root_session$userData$shidashi$event_handler
 
-    if(is.null(observer)){
+    if (is.null(observer)) {
       observer <- shiny::observeEvent({
         root_session$input[["@shidashi_event@"]]
       }, {
         event <- root_session$input[["@shidashi_event@"]]
-        if(is.list(event) && length(event$type) == 1 && is.character(event$type) ){
+        if (is.list(event) && length(event$type) == 1 && is.character(event$type) ) {
           event_data[[event$type]] <- event$message
         }
       }, domain = root_session)
@@ -326,9 +323,9 @@ get_theme <- function(event_data, session = shiny::getDefaultReactiveDomain()){
 #' @export
 get_jsevent <- function(event_data, type, default = NULL,
                         session = shiny::getDefaultReactiveDomain()){
-  if(shiny::is.reactivevalues(event_data)){
+  if (shiny::is.reactivevalues(event_data)) {
     shiny::withReactiveDomain(domain = session, {
-      if(is.list(event_data[[type]])){
+      if (is.list(event_data[[type]])) {
         return(event_data[[type]])
       } else {
         return(default)

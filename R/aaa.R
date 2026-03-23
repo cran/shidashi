@@ -1,19 +1,31 @@
 #' @importFrom fastmap fastmap
 #' @importFrom digest digest
 #' @importFrom formatR tidy_source
-#' @importFrom httr parse_url
-#' @importFrom httr modify_url
+#' @importFrom httr2 url_modify
 #' @importFrom yaml read_yaml
 #' @importFrom jsonlite fromJSON
+#' @importFrom ellmer tool
 NULL
 
-rand_string <- function (length = 10, prefix = NULL) {
+#' Get Bootstrap 5 dependencies via \pkg{bslib}
+#' @description Returns Bootstrap 5 HTML dependencies provided by
+#' \pkg{bslib}. Intended to be called from HTML templates so that
+#' \code{headContent()} renders Bootstrap 5 CSS and JavaScript.
+#' @param ... additional arguments passed to \code{bslib::bs_theme}
+#' @return An \code{\link[shiny]{tagList}} containing Bootstrap 5 dependencies
+#' @export
+bslib_dependency <- function(...) {
+  theme <- bslib::bs_theme(version = 5, ...)
+  deps <- bslib::bs_theme_dependencies(theme)
+  shiny::tagList(deps)
+}
+
+rand_string <- function(length = 10, prefix = NULL) {
   paste(c(prefix, sample(c(letters, LETTERS, 0:9), length, replace = TRUE)),
         collapse = "")
 }
 
-R_user_dir <- function (package, which = c("data", "config", "cache"))
-{
+R_user_dir <- function(package, which = c("data", "config", "cache")) {
   stopifnot(is.character(package), length(package) == 1L)
   which <- match.arg(which)
   home <- normalizePath("~")
@@ -263,3 +275,8 @@ show_ui_code <- function(
 }
 
 
+`%||%` <- function(a, b) if (is.null(a)) b else a
+
+drop_null <- function(x) {
+  as.list(x[!vapply(x, is.null, FALSE)])
+}
