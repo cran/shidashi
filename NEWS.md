@@ -1,3 +1,120 @@
+# shidashi 0.3.0
+
+* The `MCP` endpoint keeps a call log for each running app in the cache folder, `MCP-logs/date-<start time>_app-<app id>/mcp-calls.log`: one line (at most 300 characters) per request, reply, or failure, with the tool, the `JSON-RPC` id, the time taken, and the arguments, result, or reason. The stdio proxy adds the calls that never reach an app, marked `(proxy)`. Turn the log off with `options(shidashi.mcp_log = FALSE)` or the environment variable `SHIDASHI_MCP_LOG=false`; the newest `getOption("shidashi.mcp_log_keep", 50)` folders are kept
+* A running app writes `logs/server-info.log` in its folder (app id, process id, port, addresses, and call log folder). It and the app record are removed when the app stops, so an app stopped inside an R session that keeps running no longer leaves a record behind
+* Until an app has answered it, the stdio proxy skips app records whose port refuses connections and tries the next newest, instead of failing every call on a stopped app
+* `register_input()` gains `hint` (one of `input_hint_classes`): whether agents ask the user for an input before loading data or running the analysis, keep its default, or leave it alone. `shiny_input_info` returns each input's hint, takes a `hints` filter, and reports session state registered with the new `register_input_state()` under `@state`
+* With no browser page open, `switch_module` and module tool calls give the agent the app's address as a one-click link
+* The Claude plugin adds a `rave` skill: how agents find a running `RAVE` app, open it in the browser, and what to ask before loading data
+* Added `mcp_click()`: clicks an element for an agent and reports whether it matched, was clicked, or was refused; the browser refuses elements inside `[mcp-agent-disabled="true"]` (controls for people only). `shiny_input_update` clicks buttons through it, so a refused or missing button now fails the tool call
+* `colormapSelectInput()` can no longer be emptied: Backspace/Delete keep the selected color map, an update with an empty `selected` restores the previous value (or the first color map), and a `selected` outside the choices selects the first one
+* Added a color picker widget using vanilla `shiny` select input;
+* Added base theme for plots and viewers that are registered output,
+  such as `plotOutput2`;
+* Redesigned the `MCP` endpoint so agents such as `Claude Code` can drive
+  the dashboard without session binding:
+  - the tool list is built from the template on disk (each module's tools
+    load once without a browser), so it is available before any browser
+    opens and never changes while an agent is connected; tools from
+    modules that fail to load fall back to `agents/tool-schema.yaml`
+  - each tool call runs in a module chosen on the spot: the module named
+    by the optional `_module` argument, else the module tab the user pinned
+    with the new pin button, else the one the user used most recently;
+    results end with a note naming the module
+  - removed the `list_shinysessions`, `register_shinysession`,
+    `get_session_info`, and `ask_user` `MCP` tools; added
+    `shidashi_sessions` (open modules and the default one) and
+    `shidashi_call` (tools that exist only in live sessions)
+  - the server no longer issues `Mcp-Session-Id`; `/mcp/{module}` limits a
+    connection to one module (a module id or a handle)
+  - agent modes and the confirmation policy apply only to the in-dashboard
+    chat; over `MCP`, tools carry `readOnlyHint` and `destructiveHint`
+    annotations and a note, and the agent asks the user in its own chat,
+    never in the browser; tools turned off in `agents.yaml` stay off
+  - the stdio proxy picks up apps from per-app records, follows an app
+    across restarts, accepts `--app` and `--module`, and always replies to
+    a request
+  - the stdio proxy works without a running app: it connects, lists the
+    tools it can, and tells the agent to ask the user whether to start an
+    app or launch a saved one
+  - the stdio proxy can attach to a shidashi app at any address for the
+    current session (`shidashi_connect`, `shidashi_disconnect`); its tool
+    list follows the attached app, and `shidashi_tools` lists the app's
+    tools for clients that do not refresh their tool list
+  - module handles always carry the session token prefix
+    (`<module>@<token>`), so a handle stays the same when the user opens
+    the module again in another tab
+  - added the `switch_module` meta tool: it shows a module in the user's
+    dashboard as clicking it in the sidebar does (its open tab comes to the
+    front, or it opens in a new tab; `auto_new = FALSE` only switches to an
+    open tab), and returns once the module's page has loaded (options
+    `shidashi.switch_module_timeout` and `shidashi.switch_module_wait`); it
+    is refused while the user has a module pinned
+  - the dashboard now finds a module's open tab by its module id, and a
+    module page asks its dashboard directly when switching modules, so
+    `switch_module()` also works when the dashboard sits in a frame
+  - `switch_module()` gains `auto_new`: with `auto_new = FALSE` it only
+    switches to a module whose tab is open
+  - exported `mcp_call_active()`: it is `TRUE` while a tool runs for an
+    `MCP` call, and while it is, the environment variable
+    `SHIDASHI_USING_MCP` is `"TRUE"` (removed when the call returns), so
+    tools and skill scripts can behave differently for agents, for example
+    print less
+* Each skill is now two tools: `skill_load__<name>` reads the instructions
+  and reference files and never changes anything, and `skill_run__<name>`
+  runs the scripts; `skill_wrapper()` returns both (`load`, `run`);
+  in the dashboard chat, a script marked destructive in `agents.yaml` now
+  asks for confirmation
+* Skill scripts document their arguments in a `# Usage:` header comment;
+  `skill_run__<name>` lists each script's usage and refuses a call that
+  leaves out a required argument; files in `scripts/` whose names start
+  with `_` are helpers, not scripts
+* Environment variables passed to a skill script (`envs`) are now added to
+  the app's environment instead of replacing it, so the script keeps
+  `PATH`, `HOME`, and `SHIDASHI_USING_MCP`
+* Added `save_launcher()` and `run_launcher()`: saved apps are kept in one
+  `launchers.json` file in the `shidashi` cache folder, optionally with a
+  copy of the app (`copy_app = TRUE`) and free-form metadata; the `MCP`
+  proxy lists saved apps (`shidashi_launchers`) and, when the user picks
+  one, starts it and opens the chosen module in the browser
+  (`shidashi_launch`)
+* `shiny_query_ui` now returns the element's HTML or image in one call;
+  `shiny_query_ui_result` is removed; `transform_image = FALSE` asks for
+  HTML only, and long HTML is trimmed (image data and scripts shortened,
+  `max_chars` sets the limit)
+* Added the `shiny_output_result` `MCP` tool: it returns a registered
+  output's rendered content even when the output is in a hidden tab or a
+  collapsed card, rendering it first (waiting up to 10 seconds; option
+  `shidashi.output_result_timeout`); a plot that was never shown is drawn
+  at a fallback size; `shiny_query_ui` notes when an element is not shown
+  or shows an error; outputs registered with `download_type = "htmlwidget"`
+  also return the widget data (`x`), since a widget such as a `DT` table
+  shows only one page of it, and outputs registered with
+  `download_type = "data"` also return what `download_function` writes;
+  both are trimmed by `max_chars`
+* Added `render_hidden_output()`, which renders one output at the next
+  flush even when it is hidden, then restores `suspendWhenHidden`
+* `shiny_query_ui` and `shiny_output_result` ask the browser after a short
+  pause (option `shidashi.query_ui_delay`, default 0.1 seconds): agents often
+  send a change and a query in one turn as concurrent requests, which `R` may
+  take in either order, and the pause lets the change reach the page first
+* In the `bslib-bare` template, `shiny_query_ui` and `shiny_output_result`
+  ask a `threeBrain` viewer for pictures of its `WebGL` or `WebGPU` canvases:
+  they dispatch one `viewerApp.captureOnce` event on the viewer's wrapper
+  (`.threejs-brain-canvas`) with an empty object as `detail`, and the viewer
+  draws a frame and adds `{ canvas, dataURI }` to `detail.views` for each view
+  it drew. When the viewer has not answered after three animation frames, and
+  for any other canvas, the canvas is read directly as before. Such canvases
+  used to come back blank in `Chromium`, or out of date in browsers that keep
+  the last frame. A page that draws no frames (for example in a background
+  tab) is read after half a second, with a note
+* Errors inside `shidashi`'s own observers are reported as warnings instead
+  of ending the user's session
+* `register_input()` gains `tooltip`, shown when the mouse hovers over the
+  input (its `title`); it defaults to the first sentence of `description`
+  (new `as_tooltip()`), and `tooltip = NULL` turns it off; only inputs get
+  it, so other registered elements, such as cards, are unchanged
+
 # shidashi 0.2.0
 
 ## New Features

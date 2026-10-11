@@ -3,6 +3,8 @@
 \name{register_io}
 \alias{register_io}
 \alias{register_input}
+\alias{input_hint_classes}
+\alias{as_tooltip}
 \alias{register_output}
 \title{Register Shiny Inputs and Outputs for \verb{MCP} Access}
 \usage{
@@ -11,10 +13,16 @@ register_input(
   inputId,
   update,
   description = "",
+  tooltip = as_tooltip(description),
   writable = TRUE,
+  hint = "no_hint",
   quoted = FALSE,
   env = parent.frame()
 )
+
+input_hint_classes
+
+as_tooltip(description)
 
 register_output(
   expr,
@@ -48,8 +56,26 @@ default argument names passed to the update function.}
 \item{description}{character string.  A human-readable description of
 the input or output purpose, exposed to \verb{LLM} agents via \verb{MCP} tools.}
 
+\item{tooltip}{character string shown when the mouse hovers over the
+input; defaults to the first sentence of \code{description} (see
+\code{as_tooltip()}).  Set to \code{NULL} for no hover tip.  The hover
+tip is added only when the outer tag of the UI element is an input
+(a \code{button}, \code{a}, \code{input}, \code{select}, or
+\code{textarea} tag, or a tag with class
+\code{shiny-input-container}) without a \code{title}; other elements,
+such as cards, are returned unchanged.}
+
 \item{writable}{logical (default \code{TRUE}).  Whether the \verb{MCP}
 update tool is allowed to change this input.}
+
+\item{hint}{character string, one of \code{input_hint_classes}: what an
+agent does with the input before acting, reported by the
+\code{shiny_input_info} tool.  The \code{loader_*} hints apply before
+loading data and the \code{analysis_*} hints before running the
+module's main action: \code{*_mandatory} inputs are asked from the
+user, \code{*_optional} inputs may keep their current or default
+value, and \code{*_forbidden} inputs are left alone.  The default
+\code{"no_hint"} gives no guidance.}
 
 \item{quoted}{logical (default \code{FALSE}).  If \code{TRUE},
 \code{expr} is treated as already quoted; otherwise it is captured
@@ -80,7 +106,10 @@ download, or \code{NULL}.}
 \code{shiny::getDefaultReactiveDomain()}.}
 }
 \value{
-\code{register_input} returns the evaluated UI element.
+\code{register_input} returns the evaluated UI element, with
+  \code{tooltip} as the \code{title} of an input (see \code{tooltip}).
+  \code{as_tooltip} returns the first sentence of \code{description}
+  as a character string (\code{""} when it is blank).
   \code{register_output} is called for its side effects (assigning
   the render function and registering widgets) and returns \code{NULL}
   invisibly.
@@ -90,7 +119,10 @@ Register \code{shiny} inputs and outputs for \verb{MCP} (Model Context
 Protocol) agent access.
 
 \code{register_input()} wraps a \code{shiny} input constructor to
-register metadata.  It evaluates \code{expr} and returns the UI element.
+register metadata.  It evaluates \code{expr} and returns the UI element,
+with \code{tooltip} as its hover tip (the \verb{HTML} \code{title}
+attribute).  \code{as_tooltip()} gives the default hover tip: the first
+sentence of \code{description}.
 
 \code{register_output()} is a server-side function that registers a
 render function call (e.g. \code{renderPlot(\{...\})}), assigns it to
@@ -99,6 +131,9 @@ up download-widget handlers.  The UI overlay icons are injected
 entirely by \verb{JS}.
 }
 \examples{
+# The default hover tip: the first sentence of the description
+as_tooltip("Plot threshold, e.g. 0.5. Agents set it before running.")
+
 \dontrun{
 # inside a shidashi module UI function:
 ns <- shiny::NS("demo")
