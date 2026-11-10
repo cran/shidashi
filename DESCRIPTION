@@ -1,7 +1,7 @@
 Package: shidashi
 Type: Package
 Title: A Shiny Dashboard Template Modular System with Chat Bot Support
-Version: 0.3.0
+Version: 0.3.1
 Language: en-US
 URL: https://dipterix.org/shidashi/,
         https://github.com/dipterix/shidashi
@@ -35,7 +35,7 @@ Suggests: cli, coro, logger (>= 0.2.1), processx, rstudioapi (>= 0.13),
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.1.0
 NeedsCompilation: no
-Packaged: 2026-10-11 22:27:21 UTC; dipterix
+Packaged: 2026-11-10 16:43:48 UTC; dipterix
 Author: Zhengjia Wang [cph, aut, cre] (ORCID:
     <https://orcid.org/0000-0001-5629-1116>),
   ColorlibHQ [cph] (AdminLTE - Bootstrap 4 Admin Dashboard),
@@ -46,4 +46,4 @@ Author: Zhengjia Wang [cph, aut, cre] (ORCID:
   Zeno Rocha [ctb, cph] (Clipboard.js library)
 Maintainer: Zhengjia Wang <dipterix.wang@gmail.com>
 Repository: CRAN
-Date/Publication: 2026-10-11 23:00:02 UTC
+Date/Publication: 2026-11-10 17:10:02 UTC

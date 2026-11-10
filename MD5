@@ -1,7 +1,7 @@
-14d4b9256b178e841036a575d551bf65 *DESCRIPTION
+5f099f98e635039b2ed12fd93917adf8 *DESCRIPTION
 5cb9308a9f4bf75c534aec701af0354d *LICENSE
 56d30926c960bf6abc7ca9093ca60333 *NAMESPACE
-6255376d406aa6817382d08720731797 *NEWS.md
+9d94a0f7431b3bd34c22b193f19b3781 *NEWS.md
 cfb93746e62f0105a58f7caed377fec9 *R/aaa.R
 d8fba2282db46252ef776746bd758164 *R/accordion.R
 2b29500851194a75a632674d41a01285 *R/ask-user.R
@@ -26,7 +26,7 @@ e9b480d27fa894095b56a12cbcefe2d0 *R/mcp-http.R
 de6062f6be6c7b38f309cb0182e9df19 *R/mcp-log.R
 5888667ae7822d4562efd1dc50979688 *R/mcp-module.R
 a3bb68176c2d7e3d4cd4463a8004cd85 *R/mcp-switch-module.R
-9595284a49e4c73ac07d1f706f360bc6 *R/mcp-wrapper.R
+1685ebdb4d9a98a1ba6e3740467075e8 *R/mcp-wrapper.R
 3886fc0f99b474a7f6df53429bf90e00 *R/menu-item.R
 f469268a858218fccdbf5ffafc46f6be *R/modules.R
 4aab421ed6b6090719ebac41c9c4d6e3 *R/notification.R
@@ -213,7 +213,7 @@ fbd484a0f0cbfbfbbd10627beac67326 *man/open_url.Rd
 f925f814ae289e68cb341f9d8cb03f6a *man/progressOutput.Rd
 a179e57972c6edfeb2581a0757dddc31 *man/read_stream_vis.Rd
 3717fb39ad815cdbbb3d415d0bf2dc4b *man/register_input_state.Rd
-f219ffa80b7142735e15f0a96f6e7e8a *man/register_io.Rd
+3b1f261acc0b602b159c8894a086f0ce *man/register_io.Rd
 f9bfa75c9a4c960e613f5b436a92edf8 *man/register_session.Rd
 568bcb9e341090e25f29596af1c3a50a *man/render.Rd
 99cb6386654579b80dad2b1138ebe8df *man/renderPlot2.Rd
